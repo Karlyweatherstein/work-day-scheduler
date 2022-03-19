@@ -1,40 +1,62 @@
-// have the current date written in the hero under the title
-var currentDate = moment();
+// moment js code
 
+var timeDisplayEl = document.querySelector("#time-display");
 
-moment(document.getElementById("currentday")).format(LLLL);
-console.log(m.format(""))
-
-
-span = document.getElementById("currentDay");
-
+setInterval(function() {
+  timeDisplayEl.textContent = moment().format("dddd, MMMM Do");
+}, 1000)
 
 
 // ensure the save button works and saves it in the localstorage
+$("button").on("click", saveTasks);
+
+
+// var saveToDo = document.querySelector("#saveButton")
+// var button = document.querySelector("#save9")
+// var save9 = document.querySelector("#tasks")
+// var storedInput = localStorage.getItem("textInput")
+
+
+
+
+//Save tasks to local storage
+
+var tasksArr = JSON.parse(localStorage.getItem("taskname")) || []
+
+function saveTasks() {
+  console.log("message")
+  var textArea = $(this).siblings("textarea").val()
+  console.log(textArea)
+  //[{ hour: "save9", task: textarea}, { hour: "save11", task: textarea} ]
+  var button = $(this).attr("id")
+  console.log(button)
+  var taskObject = {
+    hour: button, 
+    task: textArea
+  }
+  tasksArr.push(taskObject)
+  localStorage.setItem("taskname", JSON.stringify(tasksArr));
+};
+
+var saveToLocal = () => {
+    localStorage.setItem("textInput", save9.textContent.value)
+}
+
+button.addEventListener("click", saveToLocal)
+
+
+
+
+window.localStorage.setItem('toDo', JSON.stringify(tasks));
+
+window.localStorage.getItem('tasks');
 
 
 
 //have past hours greyed out
 
-function timeOfDay(){
-
-    var d = new Date();
-    var n = d.getHours();
 
 
-    if (n > 19) {
-        buttonClass = "past"
-    // If time is 7PM or later apply night theme to 'body'
-    $('button').addClass('past');
-    } else if (n > 16 && n < 19) {
-    // If time is between 4PM – 7PM sunset theme to 'body'
-    $('button').addClass('present');
-    } else {
-    // Else use 'day' theme
-    $('button').addClass('future');
-    }
-}
-window.onload = applyclass;
 
 
 // have the current hour in red
