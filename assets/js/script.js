@@ -8,6 +8,23 @@ setInterval(function () {
 
 var saveButton = $(".saveBtn");
 
+// Changes the color of the text block
+function colorChange() {
+  var hour = moment().hours("k");
+
+  $(".tasks").each(function () {
+    var currentHour = parseInt($(this).attr("id"));
+
+    if (currentHour > hour) {
+      $(this).addClass("future");
+    } else if (currentHour === hour) {
+      $(this).addClass("present");
+    } else {
+      $(this).addClass("past");
+    }
+  });
+}
+
 //Save tasks to (Set)local storage
 saveButton.on("click", function () {
   var time = $(this).siblings(".hour").text();
@@ -24,23 +41,6 @@ function saveTasks() {
 
     if (currentTask !== null) {
       $(this).siblings(".tasks").val(currentTask);
-    }
-  });
-}
-
-// Changes the color of the text block
-function colorChange() {
-  var hour = moment().hours();
-
-  $(".time-block").each(function () {
-    var currentHour = parseInt($(this).attr("id"));
-
-    if (currentHour > hour) {
-      $(this).addClass("future");
-    } else if (currentHour === hour) {
-      $(this).addClass("present");
-    } else {
-      $(this).addClass("past");
     }
   });
 }
