@@ -6,9 +6,6 @@ setInterval(function () {
   timeDisplayEl.textContent = moment().format("dddd, MMMM Do");
 }, 1000);
 
-// ensure the save button works and saves it in the localstorage
-$("button").on("click", saveTasks);
-
 var saveButton = $(".saveBtn");
 
 //Save tasks to (Set)local storage
