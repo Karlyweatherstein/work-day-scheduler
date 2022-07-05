@@ -2,70 +2,50 @@
 
 var timeDisplayEl = document.querySelector("#time-display");
 
-setInterval(function() {
+setInterval(function () {
   timeDisplayEl.textContent = moment().format("dddd, MMMM Do");
-}, 1000)
-
+}, 1000);
 
 // ensure the save button works and saves it in the localstorage
 $("button").on("click", saveTasks);
 
+var saveButton = $(".saveBtn");
 
-// var saveToDo = document.querySelector("#saveButton")
-// var button = document.querySelector("#save9")
-// var save9 = document.querySelector("#tasks")
-// var storedInput = localStorage.getItem("textInput")
+function colorChange() {
+  var hour = moment().hours();
 
+  $(".time-block").each(function () {
+    var currentHour = parseInt($(this).attr("id"));
 
-
-
-//Save tasks to local storage
-
-var tasksArr = JSON.parse(localStorage.getItem("taskname")) || []
-
-function saveTasks() {
-  console.log("message")
-  var textArea = $(this).siblings("textarea").val()
-  console.log(textArea)
-  //[{ hour: "save9", task: textarea}, { hour: "save11", task: textarea} ]
-  var button = $(this).attr("id")
-  console.log(button)
-  var taskObject = {
-    hour: button, 
-    task: textArea
-  }
-  tasksArr.push(taskObject)
-  localStorage.setItem("taskname", JSON.stringify(tasksArr));
-};
-
-var saveToLocal = () => {
-    localStorage.setItem("textInput", save9.textContent.value)
+    if (currentHour > hour) {
+      $(this).addClass("future");
+    } else if (currentHour === hour) {
+      $(this).addClass("present");
+    } else {
+      $(this).addClass("past");
+    }
+  });
 }
 
-button.addEventListener("click", saveToLocal)
+//Save tasks to local storage
+saveButton.on("click", function () {
+  var time = $(this).siblings(".hour").text();
+  var tasks = $(this).siblings(".tasks").val();
+
+  
+  localStorage.setItem(time, tasks);
+});
 
 
+function 
 
-
-window.localStorage.setItem('toDo', JSON.stringify(tasks));
-
-window.localStorage.getItem('tasks');
-
-
-
-//have past hours greyed out
-
-
-
-
+// //have past hours greyed out
+// if (moment().isAfter(time9)) {
+//   $(time9).addClass('past')
+// }
 
 // have the current hour in red
 
-
-
-
 // have future hours in green
 
-
-
-
+colorChange();
